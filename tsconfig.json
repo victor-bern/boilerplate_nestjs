@@ -20,6 +20,12 @@
     "paths": {
       "@database/*": [
         "./src/database/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
       ]
     }
   }
