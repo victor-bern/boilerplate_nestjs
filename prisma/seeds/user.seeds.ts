@@ -14,5 +14,5 @@ export async function seedUser(prisma: PrismaClient) {
     ],
   });
 
-  console.log('Seed users success 🌱.');
+  console.log('Users seed added successfully 🌱.');
 }

@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int          @id @default(autoincrement())
+  name            String
+  email           String       @unique
+  document        String?      @unique @db.VarChar(18)
+  phone           String?      @unique
+  password        String
+  code            String?      @db.VarChar(4)
+  code_expires_in DateTime?
+  role            Role         @default(USER)
+  status          Status       @default(PENDENTE)
+  fileUrl         String?      @db.VarChar(1500)
+  fileKey         String?      @db.VarChar(1500)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @default(now())
+  permissions     Permission[]
+
+  @@map("users")
+}
+
+model Permission {
+  id        Int         @id @default(autoincrement())
+  name      Permissions @unique()
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now())
+  admin     User[]
+
+  @@map("permissions")
+}
+
+enum Role {
+  MASTER
+  ADMIN
+  USER
+}
+
+enum Status {
+  ATIVO
+  PENDENTE
+  INATIVO
+}
+
+enum Permissions {
+  Dashboard
+  Configuracoes
+}
