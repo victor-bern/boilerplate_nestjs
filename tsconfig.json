@@ -22,7 +22,7 @@
         "./src/database/*"
       ],
       "@interfaces/*": [
-        "./src/interfaces/*"
+        "./src/modules/interfaces/*"
       ],
       "@utils/*": [
         "./src/utils/*"
