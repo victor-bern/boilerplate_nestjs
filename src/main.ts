@@ -18,17 +18,16 @@ async function bootstrap() {
         ca: readFileSync(process.env.SSL_CA, 'utf8'),
       },
     });
+    app.use(helmet());
+    app.use(compression());
   } else {
     app = await NestFactory.create(AppModule, { cors: true });
   }
 
-  app.use(helmet());
-  app.use(compression());
-
   app.setGlobalPrefix('/v1');
 
   const config = new DocumentBuilder()
-    .setTitle('Documentação do Projeto X')
+    .setTitle('Documentação da API Cassio.')
     .setDescription('Essa API foi construída usando NestJS na versão 10.0')
     .setVersion('1.0')
     .addTag('Autenticação')
@@ -41,6 +40,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
+
   if (process.env.ACTIVATE_SWAGGER === 'YES') {
     SwaggerModule.setup('docs', app, document);
   }
