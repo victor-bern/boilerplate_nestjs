@@ -47,6 +47,9 @@ $ npx prisma db push
 # Executar os seeds.
 $ npm run seed
 
+# Comando para rodar em desenvolvimento (já executa o build).
+$ npm run start:dev
+
 # Comando para rodar em produção (já executa o build).
 $ npm run start:prod
 ```
@@ -69,6 +72,9 @@ $ npx prisma db push
 
 # Executar os seeds.
 $ npm run seed
+
+# Comando para rodar em desenvolvimento (já executa o build).
+$ npm run start:dev
 
 # Comando para rodar em produção (já executa o build).
 $ npm run start:prod
