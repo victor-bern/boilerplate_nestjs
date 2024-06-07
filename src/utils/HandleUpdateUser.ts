@@ -10,8 +10,8 @@ class HandleUpdateUser {
   async update(id: number, payload: UpdateAdminDto): Promise<void> {
     const { document, email, phone } = payload;
 
-    const checkAdminByEmail = await this.checkExistingUser({ document });
-    const checkAdminByDocument = await this.checkExistingUser({ email });
+    const checkAdminByEmail = await this.checkExistingUser({ email });
+    const checkAdminByDocument = await this.checkExistingUser({ document });
     const checkAdminByPhone = await this.checkExistingUser({ phone });
 
     const allowsChanges: boolean =
