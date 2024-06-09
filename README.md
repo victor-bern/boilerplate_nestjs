@@ -54,7 +54,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-**Se rodar via Docker Compose**
+**Rodar via Docker Compose**
 
 ```bash
 # Comentar a variável de ambiente na .env que se refere a rodar local.
