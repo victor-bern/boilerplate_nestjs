@@ -34,7 +34,7 @@ $ npm install
 
 ## Executando o APP
 
-**Se rodar local**
+**Rodar local**
 
 ```bash
 # Comentar a variável de ambiente na .env que se refere a rodar com Docker Compose.
