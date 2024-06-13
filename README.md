@@ -4,7 +4,9 @@
 
 ## Descrição
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Esse template ultiliza [NestJS](https://nestjs.com/) para a construção de um Back-end organizado, estruturado e escalável para grandes projetos, juntamente com [Prisma](https://www.prisma.io/) para as interações com banco de dados.
+
+...
 
 ## Instalação
 
