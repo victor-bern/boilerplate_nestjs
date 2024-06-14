@@ -21,7 +21,7 @@ async function bootstrap() {
     app.use(helmet());
     app.use(compression());
   } else {
-    app = await NestFactory.create(AppModule, { cors: true });
+    app = await NestFactory.create(AppModule);
   }
 
   app.setGlobalPrefix('/v1');
