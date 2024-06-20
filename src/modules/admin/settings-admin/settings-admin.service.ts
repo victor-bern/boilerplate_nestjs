@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@database/PrismaService';
-import { Permission, Role, Status, User } from '@prisma/client';
+import { AdminPermission, Role, Status, User } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import { CreateAdminDto } from './dto/CreateAdminDto';
 import { CreateAdminResponseDto } from './dto/CreateAdminResponseDto';
@@ -17,7 +17,7 @@ export class SettingsAdminService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(payload: CreateAdminDto): Promise<CreateAdminResponseDto> {
-    const { name, document, email, phone, password, permissions, fileUrl, fileKey } = payload;
+    const { name, document, email, phone, password, adminPermissions, fileUrl, fileKey } = payload;
 
     await checkExistingUser({ document, email, phone });
 
@@ -29,23 +29,23 @@ export class SettingsAdminService {
       password: hashSync(password, 10),
       fileUrl,
       fileKey,
-      role: Role.ADMIN,
-      status: Status.ATIVO,
+      role: Role.Admin,
+      status: Status.Ativo,
     };
 
-    const permissionsFound: Permission[] = await this.prisma.permission.findMany({
-      where: { name: { in: permissions as any } },
+    const permissionsFound: AdminPermission[] = await this.prisma.adminPermission.findMany({
+      where: { name: { in: adminPermissions as any } },
     });
 
     const user: Partial<User> = await this.prisma.user.create({
-      data: { ...validNewAdmin, permissions: { connect: permissionsFound } },
+      data: { ...validNewAdmin, adminPermissions: { connect: permissionsFound } },
     });
 
     return { message: 'Admin cadastrado com sucesso.', admin: await this.findById(user.id) };
   }
 
-  findAllPermissions(): Promise<Permission[]> {
-    return this.prisma.permission.findMany();
+  findAllPermissions(): Promise<AdminPermission[]> {
+    return this.prisma.adminPermission.findMany();
   }
 
   async findAll(query: QueryAdminDto): Promise<ResponseFindAllAdminDto> {
@@ -53,7 +53,7 @@ export class SettingsAdminService {
 
     const admins: Partial<User>[] = await this.prisma.user.findMany({
       where: {
-        OR: [{ role: Role.MASTER }, { role: Role.ADMIN }],
+        OR: [{ role: Role.Master }, { role: Role.Admin }],
         name: { contains: name },
         status: status as Status,
       },
@@ -75,7 +75,7 @@ export class SettingsAdminService {
     });
 
     const allAdmins = await this.prisma.user.findMany({
-      where: { OR: [{ role: Role.MASTER }, { role: Role.ADMIN }] },
+      where: { OR: [{ role: Role.Master }, { role: Role.Admin }] },
     });
 
     const pages: number = skip ? Math.ceil(allAdmins.length / take) : 1;
@@ -85,7 +85,7 @@ export class SettingsAdminService {
 
   async findById(id: number): Promise<Partial<User>> {
     const user: Partial<User> = await this.prisma.user.findUnique({
-      where: { id, OR: [{ role: Role.MASTER }, { role: Role.ADMIN }] },
+      where: { id, OR: [{ role: Role.Master }, { role: Role.Admin }] },
       select: {
         id: true,
         name: true,
@@ -96,7 +96,7 @@ export class SettingsAdminService {
         status: true,
         fileUrl: true,
         fileKey: true,
-        permissions: true,
+        adminPermissions: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -110,11 +110,11 @@ export class SettingsAdminService {
   async update(id: number, payload: UpdateAdminDto): Promise<Partial<User>> {
     await this.findById(id);
 
-    const { name, document, email, phone, password, status, permissions } = payload;
+    const { name, document, email, phone, password, status, adminPermissions } = payload;
 
     await HandleUpdateUser.update(id, payload);
 
-    if (permissions) await handleUpdatePermission.update(id, permissions);
+    if (adminPermissions) await handleUpdatePermission.update(id, adminPermissions);
 
     await this.prisma.user.update({
       where: { id },

@@ -30,7 +30,7 @@ export class NoAuthService {
 
     await this.prisma.user.update({
       where: { id: user.id },
-      data: { code, code_expires_in: new Date(date.setHours(date.getHours() + 4)) },
+      data: { code, codeExpiresIn: new Date(date.setHours(date.getHours() + 4)) },
     });
 
     await this.mailService.forgotPassword(email, code);
@@ -43,7 +43,7 @@ export class NoAuthService {
 
     const date: Date = new Date();
 
-    if (date >= user.code_expires_in) {
+    if (date >= user.codeExpiresIn) {
       throw new UnprocessableEntityException('Código expirou!');
     }
   }
@@ -63,7 +63,7 @@ export class NoAuthService {
       where: { id: user.id },
       data: {
         code: null,
-        code_expires_in: null,
+        codeExpiresIn: null,
         password: hashSync(password, 10),
       },
     });

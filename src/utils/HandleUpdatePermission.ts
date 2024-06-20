@@ -1,19 +1,19 @@
 import { PrismaService } from '@database/PrismaService';
-import { Permission } from '@prisma/client';
+import { AdminPermission } from '@prisma/client';
 
 class HandleUpdatePermission {
   constructor(private readonly prisma: PrismaService) {}
 
-  async update(id: number, permissions: Permission[]): Promise<void> {
-    const permissionsFound: Permission[] = await this.prisma.permission.findMany({
+  async update(id: number, permissions: AdminPermission[]): Promise<void> {
+    const permissionsFound: AdminPermission[] = await this.prisma.adminPermission.findMany({
       where: { name: { in: permissions as any } },
     });
 
-    await this.prisma.user.update({ where: { id }, data: { permissions: { set: [] } } });
+    await this.prisma.user.update({ where: { id }, data: { adminPermissions: { set: [] } } });
 
     await this.prisma.user.update({
       where: { id },
-      data: { permissions: { connect: permissionsFound } },
+      data: { adminPermissions: { connect: permissionsFound } },
     });
   }
 }

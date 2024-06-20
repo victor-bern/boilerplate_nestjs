@@ -19,7 +19,7 @@ import { ResponseFindAllAdminDto } from './dto/ResponseFindAllAdminDto';
 import { UpdateAdminDto } from './dto/UpdateAdminDto';
 import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
 import { PermissionResponseDto } from './dto/PermissionResponseDto';
-import { Permission, User } from '@prisma/client';
+import { AdminPermission, User } from '@prisma/client';
 import { CurrentUser } from 'src/modules/auth/decorators/current-user.decorator';
 import handleAccessControl from '@utils/HandleAccessControl';
 
@@ -52,7 +52,7 @@ export class SettingsAdminController {
   @ApiOperation({ summary: 'Rota que recupera todas as permissões.' })
   @ApiOkResponse({ type: [PermissionResponseDto] })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
-  async findAllPermissions(): Promise<Permission[]> {
+  async findAllPermissions(): Promise<AdminPermission[]> {
     return this.settingsAdminService.findAllPermissions();
   }
 

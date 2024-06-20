@@ -22,13 +22,13 @@ export class AuthService {
     const token: string = this.jwtService.sign(payload);
     const user = await this.loginService.findByEmail(userArg.email);
 
-    return { token, id: user.id, role: user.role, permissions: user.permissions };
+    return { token, id: user.id, role: user.role, adminPermissions: user.adminPermissions };
   }
 
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.loginService.findByEmail(email);
 
-    if (user && user.status === Status.ATIVO) {
+    if (user && user.status === Status.Ativo) {
       const isPasswordValid: boolean = compareSync(password, user.password);
 
       if (isPasswordValid) {

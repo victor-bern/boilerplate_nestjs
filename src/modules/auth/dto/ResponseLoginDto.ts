@@ -12,5 +12,5 @@ export class ResponseLoginDto {
   role: string;
 
   @ApiProperty({ type: [PermissionResponseDto] })
-  permissions: PermissionResponseDto[];
+  adminPermissions: PermissionResponseDto[];
 }

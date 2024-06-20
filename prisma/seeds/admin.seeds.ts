@@ -1,21 +1,21 @@
-import { Permissions, PrismaClient, Role, Status } from '@prisma/client';
+import { AdminPermissions, PrismaClient, Role, Status } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 
 export async function seedAdmin(prisma: PrismaClient) {
-  const permissions = Object.values(Permissions);
+  const permissions = Object.values(AdminPermissions);
 
   const newMaster = await prisma.user.create({
     data: {
       name: 'master',
       email: 'admin.master@email.com',
       password: hashSync('12345678', 10),
-      role: Role.MASTER,
-      status: Status.ATIVO,
+      role: Role.Master,
+      status: Status.Ativo,
     },
   });
 
   for (const permission of permissions) {
-    await prisma.permission.create({
+    await prisma.adminPermission.create({
       data: {
         name: permission,
         admin: { connect: { id: newMaster.id } },

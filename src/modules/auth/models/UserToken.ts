@@ -1,8 +1,8 @@
-import { Permission, Role } from '@prisma/client';
+import { AdminPermission, Role } from '@prisma/client';
 
 export interface UserToken {
   token: string;
   id: number;
   role: Role;
-  permissions: Permission[];
+  adminPermissions: AdminPermission[];
 }

@@ -8,42 +8,42 @@ datasource db {
 }
 
 model User {
-  id              Int          @id @default(autoincrement())
-  name            String
-  email           String       @unique
-  document        String?      @unique @db.VarChar(18)
-  phone           String?      @unique
-  password        String
-  code            String?      @db.VarChar(4)
-  code_expires_in DateTime?
-  role            Role         @default(USER)
-  status          Status       @default(PENDENTE)
-  fileUrl         String?      @db.VarChar(1500)
-  fileKey         String?      @db.VarChar(1500)
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @default(now())
-  permissions     Permission[]
-  files           File[]
+  id                Int               @id @default(autoincrement())
+  name              String
+  email             String            @unique
+  document          String?           @unique @db.VarChar(18)
+  phone             String?           @unique
+  password          String
+  code              String?           @db.VarChar(4)
+  codeExpiresIn     DateTime?
+  role              Role              @default(User)
+  status            Status            @default(Pendente)
+  fileUrl           String?           @db.VarChar(1500)
+  fileKey           String?           @db.VarChar(1500)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @default(now())
+  adminPermissions AdminPermission[]
+  files             File[]
 
   @@map("users")
 }
 
-model Permission {
-  id        Int         @id @default(autoincrement())
-  name      Permissions @unique()
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @default(now())
+model AdminPermission {
+  id        Int              @id @default(autoincrement())
+  name      AdminPermissions @unique()
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @default(now())
   admin     User[]
 
-  @@map("permissions")
+  @@map("admin_permissions")
 }
 
 model File {
   id        Int      @id @default(autoincrement())
   fileUrl   String?
   fileKey   String?
-  user      User     @relation(fields: [user_id], references: [id])
-  user_id   Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
@@ -61,26 +61,26 @@ model Text {
 }
 
 enum Role {
-  MASTER
-  ADMIN
-  USER
+  Master
+  Admin
+  User
 }
 
 enum Status {
-  ATIVO
-  PENDENTE
-  INATIVO
+  Ativo
+  Pendente
+  Inativo
 }
 
-enum Permissions {
+enum AdminPermissions {
   Dashboard
   Configuracoes
 }
 
 enum TextType {
-  ABOUT
-  POLICIES
-  TERMS
-  TIPS
-  COOKIES
+  About
+  Policies
+  Terms
+  Tips
+  Cookies
 }

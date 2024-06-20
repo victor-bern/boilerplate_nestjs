@@ -10,7 +10,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Permission, Status, Permissions } from '@prisma/client';
+import { AdminPermission, Status, AdminPermissions } from '@prisma/client';
 
 export class UpdateAdminDto {
   @ApiProperty({ required: false })
@@ -52,13 +52,13 @@ export class UpdateAdminDto {
   @IsNotEmpty()
   password?: string;
 
-  @ApiProperty({ enum: Permissions, type: [Permissions] })
+  @ApiProperty({ enum: AdminPermissions, type: [AdminPermissions] })
   @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(5)
-  @IsEnum(Permissions, { each: true })
+  @IsEnum(AdminPermissions, { each: true })
   @IsOptional()
-  permissions?: Permission[];
+  adminPermissions?: AdminPermission[];
 
   @ApiProperty({ required: false })
   @IsString()

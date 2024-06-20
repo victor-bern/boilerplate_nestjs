@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Permission, Permissions } from '@prisma/client';
+import { AdminPermission, AdminPermissions } from '@prisma/client';
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -40,12 +40,12 @@ export class CreateAdminDto {
   @IsNotEmpty()
   password: string;
 
-  @ApiProperty({ enum: Permissions, type: [Permissions] })
+  @ApiProperty({ enum: AdminPermissions, type: [AdminPermissions] })
   @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(5)
-  @IsEnum(Permissions, { each: true })
-  permissions: Permission[];
+  @IsEnum(AdminPermissions, { each: true })
+  adminPermissions: AdminPermission[];
 
   @ApiProperty({ required: false })
   @IsString()

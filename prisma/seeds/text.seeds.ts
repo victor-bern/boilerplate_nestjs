@@ -10,23 +10,23 @@ export async function seedText(prisma: PrismaClient) {
     data: [
       {
         text: aboutText,
-        type: TextType.ABOUT,
+        type: TextType.About,
       },
       {
         text: cookieText,
-        type: TextType.COOKIES,
+        type: TextType.Cookies,
       },
       {
         text: policyText,
-        type: TextType.POLICIES,
+        type: TextType.Policies,
       },
       {
         text: termsText,
-        type: TextType.TERMS,
+        type: TextType.Terms,
       },
       {
         text: tipsText,
-        type: TextType.TIPS,
+        type: TextType.Tips,
       },
     ],
   });

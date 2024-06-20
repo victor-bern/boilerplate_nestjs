@@ -8,7 +8,7 @@ class HandleAccessControl {
   verifyAdminRole(payload: Partial<User>): void {
     const { role } = payload;
 
-    if (role !== Role.MASTER && role !== Role.ADMIN) {
+    if (role !== Role.Master && role !== Role.Admin) {
       throw new ForbiddenException('Acesso não autorizado.');
     }
   }
@@ -18,12 +18,12 @@ class HandleAccessControl {
 
     const user = await this.prisma.user.findFirst({
       where: { id },
-      include: { permissions: true },
+      include: { adminPermissions: true },
     });
 
     if (!user) throw new NotFoundException('Usuário não encontrado.');
 
-    const validPermission: boolean = user.permissions.some(({ name }) => name === permission);
+    const validPermission: boolean = user.adminPermissions.some(({ name }) => name === permission);
 
     if (!validPermission) throw new ForbiddenException('Acesso não autorizado.');
   }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Permission } from '@prisma/client';
+import { AdminPermission } from '@prisma/client';
 
 export class CreateAdminAloneDto {
   @ApiProperty()
@@ -30,7 +30,7 @@ export class CreateAdminAloneDto {
   fileKey?: string;
 
   @ApiProperty()
-  permissions?: Permission[];
+  adminPermissions?: AdminPermission[];
 
   @ApiProperty()
   createdAt?: Date;
