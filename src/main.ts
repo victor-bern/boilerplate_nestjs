@@ -36,7 +36,7 @@ async function bootstrap() {
     .addTag('Sem autenticação')
     .addTag('My Self')
     .addServer(`${process.env.HOST}:${process.env.PORT}`)
-    .addBearerAuth()
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'bearerAuth')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
