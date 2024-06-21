@@ -8,22 +8,22 @@ datasource db {
 }
 
 model User {
-  id                Int               @id @default(autoincrement())
-  name              String
-  email             String            @unique
-  document          String?           @unique @db.VarChar(18)
-  phone             String?           @unique
-  password          String
-  code              String?           @db.VarChar(4)
-  codeExpiresIn     DateTime?
-  role              Role              @default(User)
-  status            Status            @default(Pendente)
-  fileUrl           String?           @db.VarChar(1500)
-  fileKey           String?           @db.VarChar(1500)
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @default(now())
+  id               Int               @id @default(autoincrement())
+  name             String
+  email            String            @unique
+  document         String?           @unique @db.VarChar(18)
+  phone            String?           @unique
+  password         String
+  code             String?           @db.VarChar(4)
+  codeExpiresIn    DateTime?
+  role             Role              @default(User)
+  status           Status            @default(Pendente)
+  fileUrl          String?           @db.VarChar(1500)
+  fileKey          String?           @db.VarChar(1500)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now())
   adminPermissions AdminPermission[]
-  files             File[]
+  files            File[]
 
   @@map("users")
 }
