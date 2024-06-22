@@ -11,7 +11,7 @@ async function bootstrap() {
 
   if (process.env.ACTIVATE_SSL_CERTIFICATE === 'YES') {
     app = await NestFactory.create(AppModule, {
-      cors: true,
+      cors: { origin: '*' },
       httpsOptions: {
         key: readFileSync(process.env.SSL_KEY, 'utf8'),
         cert: readFileSync(process.env.SSL_CERT, 'utf8'),
@@ -21,7 +21,7 @@ async function bootstrap() {
     app.use(helmet());
     app.use(compression());
   } else {
-    app = await NestFactory.create(AppModule);
+    app = await NestFactory.create(AppModule, { cors: { origin: '*' } });
   }
 
   app.setGlobalPrefix('/v1');
