@@ -11,7 +11,7 @@ export class QueryAdminDto {
   @ApiProperty({ enum: ['ATIVO', 'PENDENTE', 'INATIVO'], required: false })
   @IsEnum(Status)
   @IsOptional()
-  status?: string;
+  status?: Status;
 
   @ApiProperty({ required: false })
   @IsNumberString()

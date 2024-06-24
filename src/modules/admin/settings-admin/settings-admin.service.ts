@@ -55,7 +55,7 @@ export class SettingsAdminService {
       where: {
         OR: [{ role: Role.Master }, { role: Role.Admin }],
         name: { contains: name },
-        status: status as Status,
+        status,
       },
       select: {
         id: true,
@@ -75,7 +75,11 @@ export class SettingsAdminService {
     });
 
     const allAdmins = await this.prisma.user.findMany({
-      where: { OR: [{ role: Role.Master }, { role: Role.Admin }] },
+      where: {
+        OR: [{ role: Role.Master }, { role: Role.Admin }],
+        name: { contains: name },
+        status,
+      },
     });
 
     const pages: number = skip ? Math.ceil(allAdmins.length / take) : 1;
