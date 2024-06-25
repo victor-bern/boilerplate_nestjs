@@ -1,4 +1,4 @@
-import { Controller, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './models/AuthRequest';
@@ -22,7 +22,8 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: 'Rota para login de usuários.' })
   @ApiBody({ type: LoginUserDto })
-  @ApiOkResponse({ type: ResponseLoginDto, status: HttpStatus.OK })
+  @ApiOkResponse({ type: ResponseLoginDto })
+  @HttpCode(HttpStatus.OK)
   @ApiBadRequestResponse({ description: 'Requisição inválida.' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
   @UseGuards(LocalAuthGuard)
