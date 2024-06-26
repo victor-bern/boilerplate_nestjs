@@ -13,7 +13,7 @@ import {
 } from '@nestjs/swagger';
 import { CreateAdminDto } from './dto/CreateAdminDto';
 import { CreateAdminResponseDto } from './dto/CreateAdminResponseDto';
-import { CreateAdminAloneDto } from './dto/CreateAdminAloneDto';
+import { CreateAdminAloneDto } from './dto/create-admin-alone.dto';
 import { QueryAdminDto } from './dto/QueryAdminDto';
 import { ResponseFindAllAdminDto } from './dto/ResponseFindAllAdminDto';
 import { UpdateAdminDto } from './dto/UpdateAdminDto';
