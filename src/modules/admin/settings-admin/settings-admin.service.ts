@@ -4,7 +4,7 @@ import { AdminPermission, Role, Status, User } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import { CreateAdminDto } from './dto/CreateAdminDto';
 import { CreateAdminResponseDto } from './dto/CreateAdminResponseDto';
-import { QueryAdminDto } from './dto/QueryAdminDto';
+import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/ResponseFindAllAdminDto';
 import { UpdateAdminDto } from './dto/UpdateAdminDto';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
