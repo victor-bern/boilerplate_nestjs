@@ -12,7 +12,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CreateAdminDto } from './dto/create-admin.dto';
-import { CreateAdminResponseDto } from './dto/CreateAdminResponseDto';
+import { CreateAdminResponseDto } from './dto/create-admin-response.dto';
 import { CreateAdminAloneDto } from './dto/create-admin-alone.dto';
 import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/ResponseFindAllAdminDto';
