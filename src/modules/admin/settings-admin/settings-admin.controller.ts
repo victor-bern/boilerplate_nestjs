@@ -18,7 +18,7 @@ import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/ResponseFindAllAdminDto';
 import { UpdateAdminDto } from './dto/UpdateAdminDto';
 import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
-import { PermissionResponseDto } from './dto/PermissionResponseDto';
+import { PermissionResponseDto } from './dto/permission-response.dto';
 import { AdminPermission, User } from '@prisma/client';
 import { CurrentUser } from 'src/modules/auth/decorators/current-user.decorator';
 import handleAccessControl from '@utils/HandleAccessControl';

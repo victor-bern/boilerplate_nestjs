@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionResponseDto } from 'src/modules/admin/settings-admin/dto/PermissionResponseDto';
+import { PermissionResponseDto } from 'src/modules/admin/settings-admin/dto/permission-response.dto';
 
 export class ResponseLoginDto {
   @ApiProperty()
