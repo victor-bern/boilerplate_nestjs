@@ -20,7 +20,7 @@ class HandleUpdateUser {
       (checkAdminByPhone && checkAdminByPhone.id !== id);
 
     if (allowsChanges) {
-      throw new ConflictException('Já existe admin cadastrado com esses dados');
+      throw new ConflictException('Já existe usuário cadastrado com esses dados');
     }
   }
 
