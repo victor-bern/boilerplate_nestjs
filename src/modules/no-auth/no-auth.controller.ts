@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { NoAuthService } from './no-auth.service';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -8,20 +7,21 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { IsPublic } from '../auth/decorators/is-public.decorator';
-import ForgotDto from './dto/ForgotDto';
-import { ResponseForgotDto } from './dto/ResponseForgotDto';
-import { VerifyCodeDto } from './dto/VerifyCodeDto';
-import { ResponseVerifyCodeDto } from './dto/ResponseVerifyCodeDto';
-import { ResetPasswordDto } from './dto/ResetPasswordDto';
-import { ResponseResetDto } from './dto/ResponseResetDto';
-import { NewContactDto } from '../mail/dto/NewContactDto';
-import { ResponseContactUsDto } from './dto/ResponseContactUsDto';
-import { TextQueriesDto } from './dto/TextQueriesDto';
-import { ResponseTextDto } from './dto/ResponseTextDto';
-import { ResponseAllUserDto } from '../admin/settings-admin/dto/ResponseAllUserDto';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
+import { ResponseAllUserDto } from '../admin/settings-admin/dto/response-all-user.dto';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
+import { NewContactDto } from '../mail/dto/NewContactDto';
+import ForgotDto from './dto/ForgotDto';
+import { ResetPasswordDto } from './dto/ResetPasswordDto';
+import { ResponseContactUsDto } from './dto/ResponseContactUsDto';
+import { ResponseForgotDto } from './dto/ResponseForgotDto';
+import { ResponseResetDto } from './dto/ResponseResetDto';
+import { ResponseTextDto } from './dto/ResponseTextDto';
+import { ResponseVerifyCodeDto } from './dto/ResponseVerifyCodeDto';
+import { TextQueriesDto } from './dto/TextQueriesDto';
+import { VerifyCodeDto } from './dto/VerifyCodeDto';
+import { NoAuthService } from './no-auth.service';
 
 @Controller()
 export class NoAuthController {
