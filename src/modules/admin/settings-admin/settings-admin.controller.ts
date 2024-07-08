@@ -1,5 +1,4 @@
-import { Controller, Post, Body, Get, Param, Query, Patch, ParseIntPipe } from '@nestjs/common';
-import { SettingsAdminService } from './settings-admin.service';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -11,17 +10,18 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CreateAdminDto } from './dto/create-admin.dto';
-import { CreateAdminResponseDto } from './dto/create-admin-response.dto';
-import { CreateAdminAloneDto } from './dto/create-admin-alone.dto';
-import { QueryAdminDto } from './dto/query-admin.dto';
-import { ResponseFindAllAdminDto } from './dto/ResponseFindAllAdminDto';
-import { UpdateAdminDto } from './dto/UpdateAdminDto';
-import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
-import { PermissionResponseDto } from './dto/permission-response.dto';
 import { AdminPermission, User } from '@prisma/client';
-import { CurrentUser } from 'src/modules/auth/decorators/current-user.decorator';
 import handleAccessControl from '@utils/HandleAccessControl';
+import { CurrentUser } from 'src/modules/auth/decorators/current-user.decorator';
+import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
+import { CreateAdminAloneDto } from './dto/create-admin-alone.dto';
+import { CreateAdminResponseDto } from './dto/create-admin-response.dto';
+import { CreateAdminDto } from './dto/create-admin.dto';
+import { PermissionResponseDto } from './dto/permission-response.dto';
+import { QueryAdminDto } from './dto/query-admin.dto';
+import { ResponseFindAllAdminDto } from './dto/response-find-all-admin.dto';
+import { UpdateAdminDto } from './dto/UpdateAdminDto';
+import { SettingsAdminService } from './settings-admin.service';
 
 @ApiTags('Configurações - Portal Gerencial')
 @Controller('settings-admin')
