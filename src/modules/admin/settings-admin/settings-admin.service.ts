@@ -10,7 +10,7 @@ import { CreateAdminResponseDto } from './dto/create-admin-response.dto';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/response-find-all-admin.dto';
-import { UpdateAdminDto } from './dto/UpdateAdminDto';
+import { UpdateAdminDto } from './dto/update-admin.dto';
 
 @Injectable()
 export class SettingsAdminService {

@@ -1,8 +1,8 @@
 import { PrismaService } from '@database/PrismaService';
 import { ConflictException } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { UpdateAdminDto } from 'src/modules/admin/settings-admin/dto/UpdateAdminDto';
 import { CheckAdminsDto } from 'src/modules/admin/settings-admin/dto/check-admins-dto';
+import { UpdateAdminDto } from 'src/modules/admin/settings-admin/dto/update-admin.dto';
 
 class HandleUpdateUser {
   constructor(private readonly prisma: PrismaService) {}

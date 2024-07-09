@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { AdminPermission, AdminPermissions, Status } from '@prisma/client';
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -9,8 +11,6 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-import { AdminPermission, Status, AdminPermissions } from '@prisma/client';
 
 export class UpdateAdminDto {
   @ApiProperty({ required: false })

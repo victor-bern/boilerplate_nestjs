@@ -20,7 +20,7 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { PermissionResponseDto } from './dto/permission-response.dto';
 import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/response-find-all-admin.dto';
-import { UpdateAdminDto } from './dto/UpdateAdminDto';
+import { UpdateAdminDto } from './dto/update-admin.dto';
 import { SettingsAdminService } from './settings-admin.service';
 
 @ApiTags('Configurações - Portal Gerencial')
