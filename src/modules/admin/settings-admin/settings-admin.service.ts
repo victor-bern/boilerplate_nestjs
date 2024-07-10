@@ -125,7 +125,7 @@ export class SettingsAdminService {
       data: {
         name: name ? capitalizeFirstLetter(name) : undefined,
         password: password ? hashSync(password, 10) : undefined,
-        status: status ? (status as Status) : undefined,
+        status: status ? status : undefined,
         document,
         email,
         phone,

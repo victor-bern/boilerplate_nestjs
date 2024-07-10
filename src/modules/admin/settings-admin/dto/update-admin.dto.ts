@@ -43,7 +43,7 @@ export class UpdateAdminDto {
   @ApiProperty({ enum: Status, required: false })
   @IsEnum(Status)
   @IsOptional()
-  status?: string;
+  status?: Status;
 
   @ApiProperty({ required: false })
   @IsString()
