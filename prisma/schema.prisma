@@ -17,7 +17,7 @@ model User {
   code             String?           @db.VarChar(4)
   codeExpiresIn    DateTime?
   role             Role              @default(User)
-  status           Status            @default(Pendente)
+  status           Status            @default(Pending)
   fileUrl          String?           @db.VarChar(1500)
   fileKey          String?           @db.VarChar(1500)
   createdAt        DateTime          @default(now())
@@ -67,14 +67,14 @@ enum Role {
 }
 
 enum Status {
-  Ativo
-  Pendente
-  Inativo
+  Active
+  Pending
+  Inactive
 }
 
 enum AdminPermissions {
   Dashboard
-  Configuracoes
+  Settings
 }
 
 enum TextType {
