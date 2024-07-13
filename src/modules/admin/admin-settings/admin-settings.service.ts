@@ -1,9 +1,10 @@
-import { PrismaService } from '@database/PrismaService';
 import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { PrismaService } from '@database/PrismaService';
 import { AdminPermission, Role, Status, User } from '@prisma/client';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 import { checkExistingUser } from '@utils/checkExistingUser';
-import handleUpdatePermission from '@utils/HandleUpdatePermission';
+import HandleUpdatePermission from '@utils/HandleUpdatePermission';
 import HandleUpdateUser from '@utils/HandleUpdateUser';
 import { hashSync } from 'bcrypt';
 import { CreateAdminResponseDto } from './dto/create-admin-response.dto';
@@ -13,7 +14,7 @@ import { ResponseFindAllAdminDto } from './dto/response-find-all-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 
 @Injectable()
-export class SettingsAdminService {
+export class AdminSettingsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(payload: CreateAdminDto): Promise<CreateAdminResponseDto> {
@@ -74,7 +75,7 @@ export class SettingsAdminService {
       skip: (Number(skip) - 1) * Number(take) || 0,
     });
 
-    const allAdmins = await this.prisma.user.findMany({
+    const count: number = await this.prisma.user.count({
       where: {
         OR: [{ role: Role.Master }, { role: Role.Admin }],
         name: { contains: name },
@@ -82,9 +83,9 @@ export class SettingsAdminService {
       },
     });
 
-    const pages: number = skip ? Math.ceil(allAdmins.length / take) : 1;
+    const pages: number = skip ? Math.ceil(count / take) : 1;
 
-    return { admins, pages, count: allAdmins.length };
+    return { admins, pages, count };
   }
 
   async findById(id: number): Promise<Partial<User>> {
@@ -118,7 +119,7 @@ export class SettingsAdminService {
 
     await HandleUpdateUser.update(id, payload);
 
-    if (adminPermissions) await handleUpdatePermission.update(id, adminPermissions);
+    if (adminPermissions) await HandleUpdatePermission.update(id, adminPermissions);
 
     await this.prisma.user.update({
       where: { id },

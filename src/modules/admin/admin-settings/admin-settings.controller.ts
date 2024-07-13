@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -7,13 +8,13 @@ import {
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AdminPermission, User } from '@prisma/client';
 import handleAccessControl from '@utils/HandleAccessControl';
 import { CurrentUser } from 'src/modules/auth/decorators/current-user.decorator';
 import { IsPublic } from 'src/modules/auth/decorators/is-public.decorator';
+import { AdminSettingsService } from './admin-settings.service';
 import { CreateAdminAloneDto } from './dto/create-admin-alone.dto';
 import { CreateAdminResponseDto } from './dto/create-admin-response.dto';
 import { CreateAdminDto } from './dto/create-admin.dto';
@@ -21,12 +22,10 @@ import { PermissionResponseDto } from './dto/permission-response.dto';
 import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/response-find-all-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { SettingsAdminService } from './settings-admin.service';
 
-@ApiTags('Configurações - Portal Gerencial')
-@Controller('settings-admin')
-export class SettingsAdminController {
-  constructor(private readonly settingsAdminService: SettingsAdminService) {}
+@Controller('admin-settings')
+export class AdminSettingsController {
+  constructor(private readonly _adminSettingsService: AdminSettingsService) {}
 
   @Post()
   @ApiOperation({
@@ -44,7 +43,7 @@ export class SettingsAdminController {
 
     await handleAccessControl.verifyPermission(user, 'Configuracoes');
 
-    return this.settingsAdminService.create(payload);
+    return this._adminSettingsService.create(payload);
   }
 
   @IsPublic()
@@ -53,7 +52,7 @@ export class SettingsAdminController {
   @ApiOkResponse({ type: [PermissionResponseDto] })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
   async findAllPermissions(): Promise<AdminPermission[]> {
-    return this.settingsAdminService.findAllPermissions();
+    return this._adminSettingsService.findAllPermissions();
   }
 
   @Get()
@@ -70,7 +69,7 @@ export class SettingsAdminController {
 
     await handleAccessControl.verifyPermission(user, 'Configuracoes');
 
-    return this.settingsAdminService.findAll(query);
+    return this._adminSettingsService.findAll(query);
   }
 
   @Get(':id')
@@ -87,7 +86,7 @@ export class SettingsAdminController {
 
     await handleAccessControl.verifyPermission(user, 'Configuracoes');
 
-    return this.settingsAdminService.findById(id);
+    return this._adminSettingsService.findById(id);
   }
 
   @Patch(':id')
@@ -98,6 +97,6 @@ export class SettingsAdminController {
   @ApiForbiddenResponse({ description: 'Acesso não autorizado.' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
   update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateAdminDto) {
-    return this.settingsAdminService.update(id, body);
+    return this._adminSettingsService.update(id, body);
   }
 }
