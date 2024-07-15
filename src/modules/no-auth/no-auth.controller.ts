@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -7,11 +8,12 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { User } from '@prisma/client';
-import { ResponseAllUserDto } from '../admin/settings-admin/dto/response-all-user.dto';
+import { ResponseAllUserDto } from '../admin/admin-settings/dto/response-all-user.dto';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { IsPublic } from '../auth/decorators/is-public.decorator';
-import { NewContactDto } from '../mail/dto/NewContactDto';
+import { NewContactDto } from '../mail/dto/new-contact.dto';
 import ForgotDto from './dto/ForgotDto';
 import { ResetPasswordDto } from './dto/ResetPasswordDto';
 import { ResponseContactUsDto } from './dto/ResponseContactUsDto';

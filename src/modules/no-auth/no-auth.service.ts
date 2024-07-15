@@ -5,12 +5,12 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { MailService } from '../mail/mail.service';
-import generateCode from '@utils/generateCode';
 import { User } from '@prisma/client';
-import { ResetPasswordDto } from './dto/ResetPasswordDto';
+import generateCode from '@utils/generateCode';
 import { hashSync } from 'bcrypt';
-import { NewContactDto } from '../mail/dto/NewContactDto';
+import { NewContactDto } from '../mail/dto/new-contact.dto';
+import { MailService } from '../mail/mail.service';
+import { ResetPasswordDto } from './dto/ResetPasswordDto';
 import { TextQueriesDto } from './dto/TextQueriesDto';
 
 @Injectable()
