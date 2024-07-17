@@ -24,6 +24,9 @@
       "@interfaces/*": [
         "./src/interfaces/*"
       ],
+      "@enums/*": [
+        "./src/enums/*"
+      ],
       "@utils/*": [
         "./src/utils/*"
       ]
