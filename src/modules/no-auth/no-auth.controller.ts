@@ -14,7 +14,7 @@ import { ResponseAllUserDto } from '../admin/admin-settings/dto/response-all-use
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { NewContactDto } from '../mail/dto/new-contact.dto';
-import ForgotDto from './dto/ForgotDto';
+import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/ResetPasswordDto';
 import { ResponseContactUsDto } from './dto/ResponseContactUsDto';
 import { ResponseForgotDto } from './dto/ResponseForgotDto';
