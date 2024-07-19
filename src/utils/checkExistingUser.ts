@@ -12,13 +12,13 @@ const prisma: PrismaClient = new PrismaClient();
  * @throws ConflictException Se um usuário com os dados fornecidos já existir e o parâmetro r for false.
  */
 async function checkExistingUser(payload: Partial<User>, r?: boolean): Promise<Partial<User>> {
-  const { document, email, phone } = payload;
+  const { id, document, email, phone } = payload;
 
   const user: User | null = await prisma.user.findFirst({
-    where: { OR: [{ document }, { email }, { phone }] },
+    where: { OR: [{ id }, { document }, { email }, { phone }] },
   });
 
-  if (user && !r) throw new ConflictException('Já existe usuário com dados informados.');
+  if (user && !r) throw new ConflictException('Já existe usuário com os dados informados.');
 
   return user;
 }
