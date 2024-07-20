@@ -10,7 +10,7 @@ import generateCode from '@utils/generateCode';
 import { hashSync } from 'bcrypt';
 import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { MailService } from '../mail/mail.service';
-import { ResetPasswordDto } from './dto/ResetPasswordDto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { TextQueriesDto } from './dto/TextQueriesDto';
 
 @Injectable()
