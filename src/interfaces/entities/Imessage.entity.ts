@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ResponseContactUsDto {
+export class ImessageEntity {
   @ApiProperty()
   message: string;
 }

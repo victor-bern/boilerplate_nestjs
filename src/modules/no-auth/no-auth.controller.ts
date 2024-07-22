@@ -9,6 +9,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { ImessageEntity } from '@interfaces/entities/Imessage.entity';
 import { User } from '@prisma/client';
 import { ResponseAllUserDto } from '../admin/admin-settings/dto/response-all-user.dto';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -16,7 +17,6 @@ import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { ResponseContactUsDto } from './dto/ResponseContactUsDto';
 import { ResponseForgotDto } from './dto/ResponseForgotDto';
 import { ResponseResetDto } from './dto/ResponseResetDto';
 import { ResponseTextDto } from './dto/ResponseTextDto';
@@ -78,10 +78,10 @@ export class NoAuthController {
   @ApiTags('Sem autenticação')
   @ApiOperation({ summary: 'Rota para fale conosco.' })
   @ApiBody({ type: NewContactDto })
-  @ApiOkResponse({ status: 200, type: ResponseContactUsDto })
+  @ApiOkResponse({ status: 200, type: ImessageEntity })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
-  async contactUs(@Body() body: NewContactDto): Promise<ResponseContactUsDto> {
+  async contactUs(@Body() body: NewContactDto): Promise<ImessageEntity> {
     await this.noAuthService.contactUs(body);
     return { message: 'Contato enviado com sucesso, em breve retornaremos.' };
   }
