@@ -18,7 +18,6 @@ import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResponseForgotDto } from './dto/ResponseForgotDto';
-import { ResponseResetDto } from './dto/ResponseResetDto';
 import { ResponseTextDto } from './dto/ResponseTextDto';
 import { ResponseVerifyCodeDto } from './dto/ResponseVerifyCodeDto';
 import { TextQueriesDto } from './dto/TextQueriesDto';
@@ -65,10 +64,10 @@ export class NoAuthController {
   @ApiTags('Sem autenticação')
   @ApiOperation({ summary: 'Rota para redefinir senha.' })
   @ApiBody({ type: ResetPasswordDto })
-  @ApiOkResponse({ status: 200, type: ResponseResetDto })
+  @ApiOkResponse({ status: 200, type: ImessageEntity })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
-  async reset(@Body() body: ResetPasswordDto): Promise<ResponseResetDto> {
+  async reset(@Body() body: ResetPasswordDto): Promise<ImessageEntity> {
     await this.noAuthService.reset(body);
     return { message: 'Senha resetada com sucesso.' };
   }
