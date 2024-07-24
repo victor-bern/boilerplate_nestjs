@@ -8,6 +8,7 @@ import {
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AdminPermission, User } from '@prisma/client';
@@ -23,6 +24,7 @@ import { QueryAdminDto } from './dto/query-admin.dto';
 import { ResponseFindAllAdminDto } from './dto/response-find-all-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 
+@ApiTags('Configurações - Portal Gerencial')
 @Controller('admin-settings')
 export class AdminSettingsController {
   constructor(private readonly _adminSettingsService: AdminSettingsService) {}
