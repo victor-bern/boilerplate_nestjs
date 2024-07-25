@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import {
   ApiBadRequestResponse,
-  ApiBody,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
@@ -32,7 +31,6 @@ export class NoAuthController {
   @Post('no-auth/forgot')
   @ApiTags('Sem autenticação')
   @ApiOperation({ summary: 'Rota para envio de código ao email.' })
-  @ApiBody({ type: ForgotDto })
   @ApiOkResponse({ status: 200, type: ResponseForgotDto })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
@@ -49,7 +47,6 @@ export class NoAuthController {
     summary:
       'Rota para verificação do código (somente para mobile, web não precisa consumir essa rota!).',
   })
-  @ApiBody({ type: VerifyCodeDto })
   @ApiOkResponse({ status: 200, type: ResponseVerifyCodeDto })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
@@ -63,7 +60,6 @@ export class NoAuthController {
   @Post('no-auth/reset')
   @ApiTags('Sem autenticação')
   @ApiOperation({ summary: 'Rota para redefinir senha.' })
-  @ApiBody({ type: ResetPasswordDto })
   @ApiOkResponse({ status: 200, type: ImessageEntity })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
@@ -76,7 +72,6 @@ export class NoAuthController {
   @Post('no-auth/contact-us')
   @ApiTags('Sem autenticação')
   @ApiOperation({ summary: 'Rota para fale conosco.' })
-  @ApiBody({ type: NewContactDto })
   @ApiOkResponse({ status: 200, type: ImessageEntity })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })

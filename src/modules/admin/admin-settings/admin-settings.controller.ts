@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '
 
 import {
   ApiBadRequestResponse,
-  ApiBody,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -34,7 +33,6 @@ export class AdminSettingsController {
     summary: 'Rota para criar admins no portal gerencial.',
     security: [{ bearerAuth: [] }],
   })
-  @ApiBody({ type: CreateAdminDto })
   @ApiCreatedResponse({ type: CreateAdminResponseDto })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiUnauthorizedResponse({ description: 'Token inválido.' })
