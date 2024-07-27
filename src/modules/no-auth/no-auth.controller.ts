@@ -16,7 +16,6 @@ import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { ResponseForgotDto } from './dto/ResponseForgotDto';
 import { ResponseTextDto } from './dto/ResponseTextDto';
 import { ResponseVerifyCodeDto } from './dto/ResponseVerifyCodeDto';
 import { TextQueriesDto } from './dto/TextQueriesDto';
@@ -31,10 +30,10 @@ export class NoAuthController {
   @Post('no-auth/forgot')
   @ApiTags('Sem autenticação')
   @ApiOperation({ summary: 'Rota para envio de código ao email.' })
-  @ApiOkResponse({ status: 200, type: ResponseForgotDto })
+  @ApiOkResponse({ type: ImessageEntity })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
-  async forgot(@Body() body: ForgotDto): Promise<ResponseForgotDto> {
+  async forgot(@Body() body: ForgotDto): Promise<ImessageEntity> {
     const { email } = body;
     await this.noAuthService.forgot(email);
     return { message: 'Email enviado com sucesso!' };
