@@ -16,7 +16,7 @@ import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { ResponseTextDto } from './dto/ResponseTextDto';
+import { ResponseTextDto } from './dto/response-text.dto';
 import { ResponseVerifyCodeDto } from './dto/ResponseVerifyCodeDto';
 import { TextQueriesDto } from './dto/TextQueriesDto';
 import { VerifyCodeDto } from './dto/VerifyCodeDto';
