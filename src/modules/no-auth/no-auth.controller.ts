@@ -17,7 +17,6 @@ import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResponseTextDto } from './dto/response-text.dto';
-import { ResponseVerifyCodeDto } from './dto/ResponseVerifyCodeDto';
 import { TextQueriesDto } from './dto/TextQueriesDto';
 import { VerifyCodeDto } from './dto/VerifyCodeDto';
 import { NoAuthService } from './no-auth.service';
@@ -46,10 +45,10 @@ export class NoAuthController {
     summary:
       'Rota para verificação do código (somente para mobile, web não precisa consumir essa rota!).',
   })
-  @ApiOkResponse({ status: 200, type: ResponseVerifyCodeDto })
+  @ApiOkResponse({ status: 200, type: ImessageEntity })
   @ApiBadRequestResponse({ description: 'Requisição inválida' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
-  async verifyCode(@Body() body: VerifyCodeDto): Promise<ResponseVerifyCodeDto> {
+  async verifyCode(@Body() body: VerifyCodeDto): Promise<ImessageEntity> {
     const { code } = body;
     await this.noAuthService.verifyCode(code);
     return { message: 'Código verificado com sucesso!' };
