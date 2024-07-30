@@ -17,7 +17,7 @@ import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResponseTextDto } from './dto/response-text.dto';
-import { TextQueriesDto } from './dto/TextQueriesDto';
+import { TextQueriesDto } from './dto/text-queries.dto';
 import { VerifyCodeDto } from './dto/VerifyCodeDto';
 import { NoAuthService } from './no-auth.service';
 
