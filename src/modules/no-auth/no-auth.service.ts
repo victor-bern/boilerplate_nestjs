@@ -11,7 +11,7 @@ import { hashSync } from 'bcrypt';
 import { NewContactDto } from '../mail/dto/new-contact.dto';
 import { MailService } from '../mail/mail.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { TextQueriesDto } from './dto/TextQueriesDto';
+import { TextQueriesDto } from './dto/text-queries.dto';
 
 @Injectable()
 export class NoAuthService {

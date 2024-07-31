@@ -18,7 +18,7 @@ import { ForgotDto } from './dto/forgot.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResponseTextDto } from './dto/response-text.dto';
 import { TextQueriesDto } from './dto/text-queries.dto';
-import { VerifyCodeDto } from './dto/VerifyCodeDto';
+import { VerifyCodeDto } from './dto/verify-code.dto';
 import { NoAuthService } from './no-auth.service';
 
 @Controller()
