@@ -10,7 +10,7 @@ export async function seedAdmin(prisma: PrismaClient) {
       email: 'admin.master@email.com',
       password: hashSync('12345678', 10),
       role: Role.Master,
-      status: Status.Ativo,
+      status: Status.Active,
     },
   });
 

@@ -9,7 +9,7 @@ export async function seedUser(prisma: PrismaClient) {
         email: 'user.one@email.com',
         password: hashSync('12345678', 10),
         role: Role.User,
-        status: Status.Ativo,
+        status: Status.Active,
       },
     ],
   });

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { compareSync } from 'bcrypt';
-import { Status, User } from '@prisma/client';
-import { UserPayload } from './models/UserPayload';
 import { JwtService } from '@nestjs/jwt';
-import { UserToken } from './models/UserToken';
+import { Status, User } from '@prisma/client';
+import { compareSync } from 'bcrypt';
 import { LoginService } from '../login/login.service';
+import { UserPayload } from './models/UserPayload';
+import { UserToken } from './models/UserToken';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +28,7 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.loginService.findByEmail(email);
 
-    if (user && user.status === Status.Ativo) {
+    if (user && user.status === Status.Active) {
       const isPasswordValid: boolean = compareSync(password, user.password);
 
       if (isPasswordValid) {

@@ -31,7 +31,7 @@ export class AdminSettingsService {
       fileUrl,
       fileKey,
       role: Role.Admin,
-      status: Status.Ativo,
+      status: Status.Active,
     };
 
     const permissionsFound: AdminPermission[] = await this._prisma.adminPermission.findMany({
