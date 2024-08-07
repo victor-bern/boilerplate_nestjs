@@ -9,9 +9,7 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { UploadService } from './upload.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { IsPublic } from '../auth/decorators/is-public.decorator';
 import {
   ApiBody,
   ApiConsumes,
@@ -20,9 +18,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { ResponseOneFileDto } from './dto/ResponseOneFileDto';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { ResponseDeleteOneFileDto } from './dto/ResponseDeleteOneFileDto';
-import { QueryDeleteOneFileDto } from './dto/QueryDeleteOneFileDto';
+import { ResponseOneFileDto } from './dto/ResponseOneFileDto';
+import { DeleteOneFileDto } from './dto/delete-one-file.dto';
+import { UploadService } from './upload.service';
 
 @ApiTags('Upload de arquivos')
 @Controller('upload')
@@ -95,7 +95,7 @@ export class UploadController {
     required: true,
     description: 'A chave do arquivo no S3 a ser excluído',
   })
-  async deleteOneFile(@Query() query: QueryDeleteOneFileDto) {
+  async deleteOneFile(@Query() query: DeleteOneFileDto) {
     const { fileKey } = query;
     return this.uploadService.deleteOneFile(fileKey);
   }
