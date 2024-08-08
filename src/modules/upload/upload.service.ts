@@ -1,17 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
 import {
-  S3Client,
-  PutObjectCommand,
-  ObjectCannedACL,
-  PutObjectCommandInput,
-  DeleteObjectCommandInput,
   DeleteObjectCommand,
+  DeleteObjectCommandInput,
+  ObjectCannedACL,
+  PutObjectCommand,
+  PutObjectCommandInput,
+  S3Client,
 } from '@aws-sdk/client-s3';
-import { ConfigService } from '@nestjs/config';
-import { ResponseOneFileDto } from './dto/ResponseOneFileDto';
 import { PrismaService } from '@database/PrismaService';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { User } from '@prisma/client';
-import { ResponseDeleteOneFileDto } from './dto/ResponseDeleteOneFileDto';
+import { ResponseDeleteOneFileDto } from './dto/response-delete-one-file.dto';
+import { ResponseOneFileDto } from './dto/ResponseOneFileDto';
 
 @Injectable()
 export class UploadService {
