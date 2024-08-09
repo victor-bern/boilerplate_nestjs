@@ -11,7 +11,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { User } from '@prisma/client';
 import { ResponseDeleteOneFileDto } from './dto/response-delete-one-file.dto';
-import { ResponseOneFileDto } from './dto/ResponseOneFileDto';
+import { ResponseOneFileDto } from './dto/response-one-file.dto';
 
 @Injectable()
 export class UploadService {

@@ -21,7 +21,7 @@ import {
 import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { DeleteOneFileDto } from './dto/delete-one-file.dto';
 import { ResponseDeleteOneFileDto } from './dto/response-delete-one-file.dto';
-import { ResponseOneFileDto } from './dto/ResponseOneFileDto';
+import { ResponseOneFileDto } from './dto/response-one-file.dto';
 import { UploadService } from './upload.service';
 
 @ApiTags('Upload de arquivos')
