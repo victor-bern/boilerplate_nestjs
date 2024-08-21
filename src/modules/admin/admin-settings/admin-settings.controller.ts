@@ -41,7 +41,7 @@ export class AdminSettingsController {
   async create(@CurrentUser() user: User, @Body() payload: CreateAdminDto) {
     handleAccessControl.verifyAdminRole(user);
 
-    await handleAccessControl.verifyPermission(user, 'Configuracoes');
+    await handleAccessControl.verifyPermission(user, 'Settings');
 
     return this._adminSettingsService.create(payload);
   }
@@ -67,7 +67,7 @@ export class AdminSettingsController {
   async findAll(@CurrentUser() user: User, @Query() query: QueryAdminDto) {
     handleAccessControl.verifyAdminRole(user);
 
-    await handleAccessControl.verifyPermission(user, 'Configuracoes');
+    await handleAccessControl.verifyPermission(user, 'Settings');
 
     return this._adminSettingsService.findAll(query);
   }
@@ -84,7 +84,7 @@ export class AdminSettingsController {
   async findById(@CurrentUser() user: User, @Param('id', ParseIntPipe) id: number) {
     handleAccessControl.verifyAdminRole(user);
 
-    await handleAccessControl.verifyPermission(user, 'Configuracoes');
+    await handleAccessControl.verifyPermission(user, 'Settings');
 
     return this._adminSettingsService.findById(id);
   }
@@ -96,7 +96,15 @@ export class AdminSettingsController {
   @ApiUnauthorizedResponse({ description: 'Token inválido.' })
   @ApiForbiddenResponse({ description: 'Acesso não autorizado.' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno no servidor.' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateAdminDto) {
+  async update(
+    @CurrentUser() user: User,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateAdminDto,
+  ) {
+    handleAccessControl.verifyAdminRole(user);
+
+    await handleAccessControl.verifyPermission(user, 'Settings');
+
     return this._adminSettingsService.update(id, body);
   }
 }
