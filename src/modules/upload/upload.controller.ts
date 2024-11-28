@@ -1,8 +1,13 @@
+import { IfileEntity } from '@interfaces/entities/Ifile.entity';
+import { ImessageEntity } from '@interfaces/entities/Imessage.entity';
 import {
   Controller,
   Delete,
+  Get,
   HttpStatus,
+  Param,
   ParseFilePipeBuilder,
+  ParseIntPipe,
   Post,
   Query,
   UploadedFile,
@@ -25,12 +30,12 @@ import { ResponseOneFileDto } from './dto/response-one-file.dto';
 import { UploadService } from './upload.service';
 
 @ApiTags('Upload de arquivos')
-@Controller('upload')
+@Controller()
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
   @IsPublic()
-  @Post('one-file')
+  @Post('upload/one-file')
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
@@ -57,7 +62,7 @@ export class UploadController {
   }
 
   @IsPublic()
-  @Post('many-files')
+  @Post('upload/many-files')
   @UseInterceptors(FilesInterceptor('files', 5))
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
@@ -87,16 +92,32 @@ export class UploadController {
   }
 
   @IsPublic()
-  @Delete('one-file')
-  @ApiOperation({ summary: 'Rota para deletar um arquivo.' })
+  @Get('one-file/:id')
+  @ApiOperation({ summary: 'Rota para recuperar informações de um arquivo pelo id.' })
+  @ApiResponse({ status: 200, type: IfileEntity })
+  async getFileById(@Param('id', ParseIntPipe) id: number) {
+    return this.uploadService.getFileById(id);
+  }
+
+  @IsPublic()
+  @Delete('profile-photo')
+  @ApiOperation({ summary: 'Rota para deletar foto de perfil dos usuários.' })
   @ApiResponse({ status: 200, type: ResponseDeleteOneFileDto })
   @ApiQuery({
     name: 'fileKey',
     required: true,
     description: 'A chave do arquivo no S3 a ser excluído',
   })
-  async deleteOneFile(@Query() query: DeleteOneFileDto) {
+  async deleteProfilePhoto(@Query() query: DeleteOneFileDto) {
     const { fileKey } = query;
-    return this.uploadService.deleteOneFile(fileKey);
+    return this.uploadService.deleteProfilePhoto(fileKey);
+  }
+
+  @IsPublic()
+  @Delete('one-file/:id')
+  @ApiOperation({ summary: 'Rota para deletar um arquivo pelo seu id.' })
+  @ApiResponse({ status: 200, type: ImessageEntity })
+  async deleteFileById(@Param('id', ParseIntPipe) id: number) {
+    return this.uploadService.deleteFileById(id);
   }
 }

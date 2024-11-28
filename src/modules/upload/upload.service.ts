@@ -9,7 +9,7 @@ import {
 import { PrismaService } from '@database/PrismaService';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from '@prisma/client';
+import { File, User } from '@prisma/client';
 import { ResponseDeleteOneFileDto } from './dto/response-delete-one-file.dto';
 import { ResponseOneFileDto } from './dto/response-one-file.dto';
 
@@ -70,7 +70,15 @@ export class UploadService {
     return Promise.all(uploadPromises);
   }
 
-  async deleteOneFile(fileKey: string): Promise<Partial<User>> {
+  async getFileById(id: number): Promise<File> {
+    const file: File | null = await this.prisma.file.findFirst({ where: { id } });
+
+    if (!file) throw new NotFoundException('Arquivo não encontrado.');
+
+    return file;
+  }
+
+  async deleteProfilePhoto(fileKey: string): Promise<Partial<User>> {
     const user: Partial<User> = await this.getUserByFileKey(fileKey);
 
     const deleteParams: DeleteObjectCommandInput = {
@@ -88,6 +96,21 @@ export class UploadService {
     const userUpdated: Partial<User> = await this.getUserById(user.id);
 
     return userUpdated;
+  }
+
+  async deleteFileById(id: number): Promise<{ message: string }> {
+    const file = await this.getFileById(id);
+
+    const deleteParams: DeleteObjectCommandInput = {
+      Bucket: this.bucketName,
+      Key: file.fileKey,
+    };
+
+    await this.s3Client.send(new DeleteObjectCommand(deleteParams));
+
+    await this.prisma.file.delete({ where: { id } });
+
+    return { message: 'Arquivo deletado com sucesso.' };
   }
 
   private async getUserByFileKey(fileKey: string): Promise<ResponseDeleteOneFileDto> {
