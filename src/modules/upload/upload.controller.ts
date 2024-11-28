@@ -1,3 +1,4 @@
+import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { IfileEntity } from '@interfaces/entities/Ifile.entity';
 import { ImessageEntity } from '@interfaces/entities/Imessage.entity';
 import {
@@ -5,11 +6,13 @@ import {
   Delete,
   Get,
   HttpStatus,
+  NotFoundException,
   Param,
   ParseFilePipeBuilder,
   ParseIntPipe,
   Post,
   Query,
+  Res,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
@@ -19,10 +22,13 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiProduces,
   ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Response } from 'express';
+import { Readable } from 'stream';
 import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { DeleteOneFileDto } from './dto/delete-one-file.dto';
 import { ResponseDeleteOneFileDto } from './dto/response-delete-one-file.dto';
@@ -97,6 +103,42 @@ export class UploadController {
   @ApiResponse({ status: 200, type: IfileEntity })
   async getFileById(@Param('id', ParseIntPipe) id: number) {
     return this.uploadService.getFileById(id);
+  }
+
+  @IsPublic()
+  @Get('one-file/download/:id')
+  @ApiOperation({ summary: 'Rota para download de arquivos.' })
+  @ApiProduces('application/octet-stream')
+  @ApiResponse({
+    status: 200,
+    description: 'Download efetuado com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Arquivo não encontrado.',
+  })
+  async dowload(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+    const file = await this.getFileById(id);
+
+    const s3Client = new S3Client({ region: process.env.AWS_REGION });
+
+    const getObjectCommand = new GetObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: file.fileKey,
+    });
+
+    const { Body, ContentType } = await s3Client.send(getObjectCommand);
+
+    if (!Body) throw new NotFoundException('Arquivo não encontrado');
+
+    res.set({
+      'Content-Type': ContentType || 'application/octet-stream',
+      'Content-Disposition': `attachment; filename=${file.fileKey}`,
+    });
+
+    const stream = Body instanceof Readable ? Body : Readable.from(Body as any);
+
+    return stream.pipe(res);
   }
 
   @IsPublic()
