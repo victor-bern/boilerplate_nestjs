@@ -1,10 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import helmet from 'helmet';
+import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import { readFileSync } from 'fs';
+import helmet from 'helmet';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   let app: INestApplication;
@@ -35,7 +35,8 @@ async function bootstrap() {
     .addTag('Upload de arquivos')
     .addTag('Sem autenticação')
     .addTag('My Self')
-    .addServer(`${process.env.HOST}:${process.env.PORT}`)
+    .addServer(`${process.env.HOST}:${process.env.PORT}`, 'Testes locais.')
+    .addServer(`${process.env.NGROK}`, 'Testes de integrações.')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'bearerAuth')
     .build();
 
