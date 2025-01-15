@@ -17,6 +17,7 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import {
   ApiBody,
@@ -38,7 +39,10 @@ import { UploadService } from './upload.service';
 @ApiTags('Upload de arquivos')
 @Controller()
 export class UploadController {
-  constructor(private readonly uploadService: UploadService) {}
+  constructor(
+    private readonly _uploadService: UploadService,
+    private readonly _configService: ConfigService,
+  ) {}
 
   @IsPublic()
   @Post('upload/one-file')
@@ -63,7 +67,7 @@ export class UploadController {
     )
     file: Express.Multer.File,
   ) {
-    const response = await this.uploadService.uploadOneFile(file);
+    const response = await this._uploadService.uploadOneFile(file);
     return { ...response };
   }
 
@@ -93,7 +97,7 @@ export class UploadController {
     )
     files: Express.Multer.File[],
   ) {
-    const response = await this.uploadService.uploadManyFiles(files);
+    const response = await this._uploadService.uploadManyFiles(files);
     return response;
   }
 
@@ -102,7 +106,7 @@ export class UploadController {
   @ApiOperation({ summary: 'Rota para recuperar informações de um arquivo pelo id.' })
   @ApiResponse({ status: 200, type: IfileEntity })
   async getFileById(@Param('id', ParseIntPipe) id: number) {
-    return this.uploadService.getFileById(id);
+    return this._uploadService.getFileById(id);
   }
 
   @IsPublic()
@@ -120,10 +124,10 @@ export class UploadController {
   async dowload(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
     const file = await this.getFileById(id);
 
-    const s3Client = new S3Client({ region: process.env.AWS_REGION });
+    const s3Client = new S3Client({ region: this._configService.get<string>('AWS_REGION') });
 
     const getObjectCommand = new GetObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME,
+      Bucket: this._configService.get<string>('AWS_BUCKET_NAME'),
       Key: file.fileKey,
     });
 
@@ -152,7 +156,7 @@ export class UploadController {
   })
   async deleteProfilePhoto(@Query() query: DeleteOneFileDto) {
     const { fileKey } = query;
-    return this.uploadService.deleteProfilePhoto(fileKey);
+    return this._uploadService.deleteProfilePhoto(fileKey);
   }
 
   @IsPublic()
@@ -160,6 +164,6 @@ export class UploadController {
   @ApiOperation({ summary: 'Rota para deletar um arquivo pelo seu id.' })
   @ApiResponse({ status: 200, type: ImessageEntity })
   async deleteFileById(@Param('id', ParseIntPipe) id: number) {
-    return this.uploadService.deleteFileById(id);
+    return this._uploadService.deleteFileById(id);
   }
 }
