@@ -21,7 +21,7 @@ model User {
   fileUrl          String?           @db.VarChar(1500)
   fileKey          String?           @db.VarChar(1500)
   createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   adminPermissions AdminPermission[]
   files            File[]
 
@@ -32,7 +32,7 @@ model AdminPermission {
   id        Int              @id @default(autoincrement())
   name      AdminPermissions @unique()
   createdAt DateTime         @default(now())
-  updatedAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
   admin     User[]
 
   @@map("admin_permissions")
@@ -45,7 +45,7 @@ model File {
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("files")
 }
@@ -55,7 +55,7 @@ model Text {
   type      TextType
   text      String   @db.LongText()
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("texts")
 }
