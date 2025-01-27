@@ -117,7 +117,7 @@ export class AdminSettingsService {
 
     const { name, document, email, phone, password, status, adminPermissions } = payload;
 
-    await HandleUpdateUser.updateAdmin(id, payload);
+    await HandleUpdateUser.updateUser(id, payload);
 
     if (adminPermissions) await HandleUpdatePermission.update(id, adminPermissions);
 
