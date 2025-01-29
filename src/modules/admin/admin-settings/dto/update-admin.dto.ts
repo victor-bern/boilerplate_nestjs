@@ -10,28 +10,27 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
+import { IsCpfOrCnpj } from 'src/decorators/isCpfOrCnpj';
 
 export class UpdateAdminDto {
   @ApiProperty({ required: false })
   @IsString()
   @MaxLength(191)
   @IsOptional()
-  @IsNotEmpty()
   name?: string;
 
   @ApiProperty({ required: false })
-  @IsString()
+  @IsCpfOrCnpj()
   @MaxLength(18)
   @IsOptional()
   document?: string;
 
   @ApiProperty({ required: false })
-  @IsString()
+  @IsEmail()
   @MaxLength(191)
   @IsOptional()
-  @IsEmail()
-  @IsNotEmpty()
   email?: string;
 
   @ApiProperty({ required: false })
@@ -47,8 +46,8 @@ export class UpdateAdminDto {
 
   @ApiProperty({ required: false })
   @IsString()
+  @MinLength(8)
   @MaxLength(8)
-  @IsOptional()
   @IsNotEmpty()
   password?: string;
 
