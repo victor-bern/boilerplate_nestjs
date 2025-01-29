@@ -6,7 +6,6 @@ import {
   IsArray,
   IsEmail,
   IsEnum,
-  IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
@@ -48,7 +47,6 @@ export class UpdateAdminDto {
   @IsString()
   @MinLength(8)
   @MaxLength(8)
-  @IsNotEmpty()
   password?: string;
 
   @ApiProperty({ enum: AdminPermissions, type: [AdminPermissions] })
