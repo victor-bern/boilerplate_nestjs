@@ -40,8 +40,8 @@ model AdminPermission {
 
 model File {
   id        Int      @id @default(autoincrement())
-  fileUrl   String?
-  fileKey   String?
+  fileUrl   String?  @db.VarChar(1500)
+  fileKey   String?  @db.VarChar(1500)
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   createdAt DateTime @default(now())
