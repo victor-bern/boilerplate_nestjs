@@ -48,6 +48,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT, () => console.log(`Server UP on PORT ${process.env.PORT}`));
 }
 bootstrap();
