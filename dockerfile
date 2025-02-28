@@ -7,6 +7,9 @@ WORKDIR /usr/app
 # Copia package.json e package-lock.json
 COPY package*.json ./
 
+# Instalar dependências do sistema e o editor nano
+RUN apt-get update && apt-get install -y nano
+
 # Instala as dependências.
 RUN npm install
 
