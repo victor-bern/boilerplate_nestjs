@@ -36,7 +36,7 @@ async function bootstrap() {
     .addTag('Sem autenticação')
     .addTag('My Self')
     .addServer(`${process.env.HOST}:${process.env.PORT}`, 'Testes locais.')
-    .addServer(`${process.env.NGROK}`, 'Testes de integrações.')
+    .addServer(`${process.env.URL_INTEGRATION}`, 'Testes de integrações.')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'bearerAuth')
     .build();
 
